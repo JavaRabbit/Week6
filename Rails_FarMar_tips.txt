@@ -1,0 +1,6 @@
+Rails Far Mar tips
+
+rake db:migrate (in terminal)
+
+Show all databases from rails console
+ActiveRecord::Base.connection.tables

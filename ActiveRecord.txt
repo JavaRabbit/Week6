@@ -1,0 +1,90 @@
+rails new classroom -T -d postgresql
+
+cd classroom
+rake db:create
+
+rails g model student name:string birthday:date
+
+migration is changes to the database (updates database)
+
+rake db:rollback
+
+
+rails g migration add_cohort_to_students
+
+rollback takes us back one version. Migrate takes us to the newest version
+
+s = Student.new
+s.save
+
+create does both new and save
+
+Student.where(name: "Beth")
+
+Student.where(name: "beth").where(id: 1)
+Student.where(name: "beth").order(birthday: desc)
+Student.where("name = 'lily'")
+Student.where("name LIKE 'lily'")
+Student.where("name = ?", "lily")
+
+case insensitive like (only for postgres) ILIKE
+Student.where("name ILIKE ?", "%mag%")
+Student.where("name ILIKE ?", "%kr%")
+
+Student.order(name: :asc)
+
+psql (command for postgres console)
+psql -d classroom_development
+Select * from students;
+
+
+Back to rails_blog
+rails g model comment content:text post_id:integer
+reload!
+p = Post.last
+p.comments.to_sql
+
+rails g model user username:string
+rails g migration add_user_id_to_comments
+
+u = User.new(username: "linea")
+u.save
+Post.last.users
+
+User.first.destroy
+
+
+Rails Practice: _________________________________________________________
+rails new practice -T -d postgresql
+
+cd practice
+rake db:create
+rails g model student name:string pizza:string coffee:boolean
+rails console
+a = Student.new
+a.name = "Allie"
+a.pizza = "cheese"
+a.coffee = true
+a.save
+
+Student.all
+
+student = Student.first
+Student.last
+
+Student.find(2)
+Student.find_by(name: "Crystal")
+Student.find_by(coffee: false)
+Student.find_by(coffee: true)  (returns only the first record)
+
+Student.where("name = ?", "Cat")   (returns no entries)
+Student.where("name = ?", "Cate")
+
+Student.where.not(pizza: "cheese")
+
+Student.destroy(5)
+
+Exit rails console use control + d
+
+
+
